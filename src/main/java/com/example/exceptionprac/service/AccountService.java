@@ -1,7 +1,7 @@
 package com.example.exceptionprac.service;
 
-import com.example.exceptionprac.domain.User;
 import com.example.exceptionprac.domain.UserRepository;
+import com.example.exceptionprac.domain.Users;
 import com.example.exceptionprac.dto.AccountDto;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class AccountService {
         String password = dto.getPassword();
         String email = dto.getEmail();
 
-        User user = new User(username, password, email);
+        Users user = new Users(username, password, email);
 
         userRepository.save(user);
 

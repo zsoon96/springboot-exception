@@ -15,11 +15,11 @@ public class AccountDto {
     @NoArgsConstructor
     public static class SignUpReq {
         // @Valid 기능을 통한 유효성 검사
-        @NotEmpty // null 허용 X + 공백 문자열 허용 X
+        @NotEmpty (message = "username에 Null값 또는 공백 문자열을 허용하지 않습니다.")
         private String username;
-        @NotBlank // null 허용 X + 문자 1개 이상 포함(공백 제외)
+        @NotBlank (message = "password에 Null값 또는 문자 1개 이상 포함되어야 합니다.")
         private String password;
-        @Email // @이 포함된 올바른 이메일 형식
+        @Email (message = "@를 포함하여 올바른 이메일 형식을 적어주세요.")
         private String email;
     }
 
