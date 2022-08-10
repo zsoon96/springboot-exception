@@ -27,6 +27,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // @Valid 사용을 위한 의존성
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // BCryptPasswordEncoder() 비밀번호 암호화를 위한 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 tasks.named('test') {
