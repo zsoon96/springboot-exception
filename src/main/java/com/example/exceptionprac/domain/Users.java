@@ -4,10 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -20,10 +17,12 @@ public class Users {
 
     private String username;
     private String password;
-    private String email;
+
+    @Embedded
+    private com.example.exceptionprac.domain.Email email;
 
     @Builder
-    public Users (String username, String password, String email) {
+    public Users (String username, String password, com.example.exceptionprac.domain.Email email) {
         this.username = username;
         this.password = password;
         this.email = email;

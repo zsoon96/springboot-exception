@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
@@ -19,17 +19,26 @@ public class AccountDto {
         private String username;
         @NotBlank (message = "password에 Null값 또는 문자 1개 이상 포함되어야 합니다.")
         private String password;
-        @Email (message = "@를 포함하여 올바른 이메일 형식을 적어주세요.")
-        private String email;
+        //@Email (message = "@를 포함하여 올바른 이메일 형식을 적어주세요.")
+        //private String email;
+        @Valid // 해당 어노테이션 반드시 필요
+        private com.example.exceptionprac.domain.Email email;
+
+        @Builder
+        public SignUpReq(com.example.exceptionprac.domain.Email email, String username, String password) {
+            this.email = email;
+            this.username = username;
+            this.password = password;
+        }
     }
 
     @Getter
     @NoArgsConstructor
     public static class Res {
         private String username;
-        private String email;
+        private com.example.exceptionprac.domain.Email email;
 
-        public Res(String username, String email) {
+        public Res(String username, com.example.exceptionprac.domain.Email email) {
             this.username = username;
             this.email = email;
         }

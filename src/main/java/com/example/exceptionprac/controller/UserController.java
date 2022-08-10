@@ -48,7 +48,8 @@ public class UserController {
     // 성공 시, 아래 리턴 값 반환
     // 실패 시, ErrorExceptionController에서 예외 값 반환
     @PostMapping("signup/v2")
-    public ResponseEntity signup (@RequestBody @Valid AccountDto.SignUpReq dto) {
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public ResponseEntity signup (@RequestBody @Valid final AccountDto.SignUpReq dto) {
         return ResponseEntity.ok(accountService.create(dto));
     }
 
