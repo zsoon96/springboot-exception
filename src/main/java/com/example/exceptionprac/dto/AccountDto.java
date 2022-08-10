@@ -24,6 +24,8 @@ public class AccountDto {
         @Valid // 해당 어노테이션 반드시 필요
         private com.example.exceptionprac.domain.Email email;
 
+        // postman 테스트 시, Email은 String이 아닌 객체 타입으로 입력해줘야함 > 안그러면 400 에러가 반김
+            // "email" : "email@naver.com: --> "email" : { "email" : "email@naver.com" }
         @Builder
         public SignUpReq(com.example.exceptionprac.domain.Email email, String username, String password) {
             this.email = email;
