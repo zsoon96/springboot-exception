@@ -16,13 +16,14 @@ public class Users {
     private Long id;
 
     private String username;
-    private String password;
+    @Embedded
+    private Password password;
 
     @Embedded
     private com.example.exceptionprac.domain.Email email;
 
     @Builder
-    public Users (String username, String password, com.example.exceptionprac.domain.Email email) {
+    public Users (String username, Password password, Email email) {
         this.username = username;
         this.password = password;
         this.email = email;

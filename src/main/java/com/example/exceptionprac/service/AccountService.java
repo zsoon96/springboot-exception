@@ -2,6 +2,7 @@ package com.example.exceptionprac.service;
 
 import com.example.exceptionprac.common.AccountNotFoundException;
 import com.example.exceptionprac.domain.Email;
+import com.example.exceptionprac.domain.Password;
 import com.example.exceptionprac.domain.UserRepository;
 import com.example.exceptionprac.domain.Users;
 import com.example.exceptionprac.dto.AccountDto;
@@ -22,7 +23,9 @@ public class AccountService {
         String password = dto.getPassword();
         Email email = dto.getEmail();
 
-        Users user = new Users(username, password, email);
+        Password dbPassword = new Password(password);
+
+        Users user = new Users(username, dbPassword, email);
 
         userRepository.save(user);
 
