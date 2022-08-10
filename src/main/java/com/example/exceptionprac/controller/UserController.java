@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -53,5 +50,11 @@ public class UserController {
     @PostMapping("signup/v2")
     public ResponseEntity signup (@RequestBody @Valid AccountDto.SignUpReq dto) {
         return ResponseEntity.ok(accountService.create(dto));
+    }
+
+    @GetMapping("userinfo/v1/{id}")
+    public ResponseEntity show (@PathVariable Long id) {
+        accountService.findById(id);
+        return ResponseEntity.ok("회원 정보 조회 성공!");
     }
 }

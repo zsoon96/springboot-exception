@@ -1,9 +1,11 @@
 package com.example.exceptionprac.service;
 
+import com.example.exceptionprac.common.AccountNotFoundException;
 import com.example.exceptionprac.domain.UserRepository;
 import com.example.exceptionprac.domain.Users;
 import com.example.exceptionprac.dto.AccountDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountService {
@@ -24,6 +26,11 @@ public class AccountService {
         userRepository.save(user);
 
         return new AccountDto.Res(username, email);
+    }
+
+    @Transactional(readOnly = true)
+    public void findById(long id) {
+        userRepository.findById(id).orElseThrow(() -> new AccountNotFoundException(id));
     }
 
 }
