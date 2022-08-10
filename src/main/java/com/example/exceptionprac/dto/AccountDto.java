@@ -36,6 +36,8 @@ public class AccountDto {
             this.password = password;
         }
 
+        // AccountService에서 dto 객체를 해당 메서드를 통해 바로 db에 저장하기 위한 역할
+        // 비즈니스 로직은 서비스단이 아닌 해당 도메인 클래스에 작성됨으로써, 책임을 부여함과 동시에 더욱 객체지향적인 코드로 개선
         public Users toEntity() {
             return Users.builder()
                     .email(this.email)

@@ -19,17 +19,20 @@ public class AccountService {
     }
 
     public AccountDto.Res create (AccountDto.SignUpReq dto ) {
-        String username = dto.getUsername();
-        String password = dto.getPassword();
-        Email email = dto.getEmail();
+//        String username = dto.getUsername();
+//        String password = dto.getPassword();
+//        Email email = dto.getEmail();
+//
+//        Password dbPassword = new Password(password);
+//
+//        Users user = new Users(username, dbPassword, email);
+//        userRepository.save(user);
 
-        Password dbPassword = new Password(password);
+        // 서비스에서는 도메인의 핵심 비즈니스 코드를 담당하는 역할이 아닌,
+        // 데이터베이스 영역과 도메인 영역을 연결해주는 매개체임을 명심할 것 !!
+        userRepository.save(dto.toEntity());
 
-        Users user = new Users(username, dbPassword, email);
-
-        userRepository.save(user);
-
-        return new AccountDto.Res(username, email);
+        return new AccountDto.Res(dto.getUsername(), dto.getEmail());
     }
 
     @Transactional(readOnly = true)
