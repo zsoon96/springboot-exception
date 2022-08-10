@@ -26,7 +26,7 @@ public class UserController {
     }
 
     // @Valid를 활용하여 유효성 검증이 실패했을 경우 > MethodArgumentNotValidException 발생
-    @PostMapping("/signup")
+    @PostMapping("/signup/v1")
     public ResponseEntity signup (@RequestBody @Valid AccountDto.SignUpReq dto, BindingResult result) {
 
         // BindingResult를 통해 에러 발생시, 에러 내용을 body에 담아 응답
@@ -44,6 +44,14 @@ public class UserController {
             });
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(sb.toString());
         }
+        return ResponseEntity.ok(accountService.create(dto));
+    }
+
+    // @ControllerAdvice를 통한 예외처리
+    // 성공 시, 아래 리턴 값 반환
+    // 실패 시, ErrorExceptionController에서 예외 값 반환
+    @PostMapping("signup/v2")
+    public ResponseEntity signup (@RequestBody @Valid AccountDto.SignUpReq dto) {
         return ResponseEntity.ok(accountService.create(dto));
     }
 }
