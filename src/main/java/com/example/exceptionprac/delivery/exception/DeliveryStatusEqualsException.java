@@ -1,6 +1,6 @@
 package com.example.exceptionprac.delivery.exception;
 
-import com.example.exceptionprac.delivery.DeliveryStatus;
+import com.example.exceptionprac.delivery.domain.DeliveryStatus;
 
 public class DeliveryStatusEqualsException extends RuntimeException{
 

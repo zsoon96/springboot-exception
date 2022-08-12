@@ -1,4 +1,4 @@
-package com.example.exceptionprac.delivery;
+package com.example.exceptionprac.delivery.domain;
 
 import com.example.exceptionprac.delivery.exception.DeliveryAlreadyDeliveringException;
 import com.example.exceptionprac.delivery.exception.DeliveryStatusEqualsException;

@@ -1,4 +1,4 @@
-package com.example.exceptionprac.delivery;
+package com.example.exceptionprac.delivery.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
