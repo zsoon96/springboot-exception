@@ -44,6 +44,10 @@ public class DeliveryLog {
         this.delivery = delivery;
     }
 
+    /////////////////////////////////////////////////////////////////////
+
+    // 객체의 상태는 언제는 자기 자신이 관리해야 한 곳에서 관리 가능 = 유지보수 향상 / 객체 지향적 코드
+
     // 배송 추적 처리 메서드
     private void verifyStatus(DeliveryStatus status, Delivery delivery) {
         if (!delivery.getLogs().isEmpty()) {
@@ -99,6 +103,7 @@ public class DeliveryLog {
     }
 
     private void canceled() {
+        verifyNotYetDelivering(); // 배송중인지 확인
         this.status = DeliveryStatus.CANCELED;
     }
 
