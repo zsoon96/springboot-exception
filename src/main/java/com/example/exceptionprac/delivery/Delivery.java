@@ -1,5 +1,6 @@
 package com.example.exceptionprac.delivery;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,5 +30,23 @@ public class Delivery {
 
     @Embedded
     private DateTime dateTime;
+
+    @Builder
+    public Delivery(Address address) {
+        this.address = address;
+    }
+
+    // 배송 추적 추가 로직
+    public void addLog (DeliveryStatus status) {
+        this.logs.add(buildLog(status));
+    }
+
+    // 배송 추적 저장
+    private DeliveryLog buildLog (DeliveryStatus status) {
+        return DeliveryLog.builder()
+                .status(status)
+                .delivery(this)
+                .build();
+    }
 
 }
