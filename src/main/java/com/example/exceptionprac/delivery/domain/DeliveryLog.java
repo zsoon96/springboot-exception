@@ -70,8 +70,8 @@ public class DeliveryLog {
 
     // 마지막 추적 상태가 COMPLETED인지 확인하는 메서드
     private void verifyAlreadyCompleted() {
-        if ( lastStatus != DeliveryStatus.COMPLETED )
-            throw new IllegalArgumentException("배송이 완료되어 변경할 수 없습니다.");
+        if ( lastStatus == DeliveryStatus.COMPLETED )
+            throw new IllegalArgumentException("이미 완료되어 변경할 수 없습니다.");
     }
 
     // 배송 추적 상태 변경하는 메서드
