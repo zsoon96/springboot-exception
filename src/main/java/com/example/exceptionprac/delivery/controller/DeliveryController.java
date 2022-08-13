@@ -2,6 +2,7 @@ package com.example.exceptionprac.delivery.controller;
 
 import com.example.exceptionprac.delivery.dto.DeliveryDto;
 import com.example.exceptionprac.delivery.service.DeliveryService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,11 +18,13 @@ public class DeliveryController {
     }
 
     @PostMapping("/create")
+    @ResponseStatus(value = HttpStatus.CREATED) // 201
     public DeliveryDto.Res create (@RequestBody @Valid DeliveryDto.CreationReq dto) {
         return new DeliveryDto.Res (deliveryService.create(dto));
     }
 
     @GetMapping("/mylog/{id}")
+    @ResponseStatus(value = HttpStatus.OK) // 200
     public DeliveryDto.Res getDelivery (@PathVariable Long id) {
         return new DeliveryDto.Res (deliveryService.findById(id));
     }
