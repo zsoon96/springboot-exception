@@ -46,8 +46,10 @@ public class DeliveryLogTest {
         delivery.addLog(DeliveryStatus.COMPLETED);
     }
 
+    // @Test에 발생할 예외 클래스를 expected 옵션에 넣어주어 해당 예외가 발생함을 검증
     @Test(expected = DeliveryStatusEqualsException.class)
     public void 동일한_status_변경시_DeliveryStatusEqualsException() {
+        // 예외 발생 코드
         Delivery delivery = buildDelivery();
         DeliveryStatus status = DeliveryStatus.DELIVERING;
 
