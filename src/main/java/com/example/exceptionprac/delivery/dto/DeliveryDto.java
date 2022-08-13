@@ -36,6 +36,7 @@ public class DeliveryDto {
     public static class UpdateReq {
         private DeliveryStatus status;
 
+        @Builder
         public UpdateReq(DeliveryStatus status) {
             this.status = status;
         }
