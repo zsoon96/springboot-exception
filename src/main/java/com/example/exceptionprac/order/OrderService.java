@@ -21,17 +21,17 @@ public class OrderService {
     }
 
     // 주문에 대한 쿠폰 적용
-    public Order order() {
-        Order order = Order.builder()
-                .price(10000)
+    public Orders order() {
+        Orders orders = Orders.builder()
+                .price(10_000D)
                 .build();
-        Coupon coupon = couponService.findById(1L);
-        order.applyCoupon(coupon);
-        return orderRepository.save(order);
+        Coupon coupon = couponService.findById(1);
+        orders.applyCoupon(coupon);
+        return orderRepository.save(orders);
     }
 
     // 주문 조회
-    public Order findById(Long id) {
+    public Orders findById(long id) {
         return orderRepository.findById(id).get();
     }
 }
