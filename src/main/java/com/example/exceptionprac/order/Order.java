@@ -1,6 +1,7 @@
 package com.example.exceptionprac.order;
 
 import com.example.exceptionprac.coupon.Coupon;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,4 +23,15 @@ public class Order {
     @OneToOne
     @JoinColumn(name = "coupon_id" , referencedColumnName = "id", nullable = false)
     private Coupon coupon;
+
+    @Builder
+    public Order (double price) {
+        this.price = price;
+    }
+
+    public void applyCoupon ( Coupon coupon ) {
+        this.coupon = coupon;
+        coupon.use(this); // 쿠폰 사용 처리
+        price -= coupon.getDiscountAmount(); // 할인 가격 산출
+    }
 }
