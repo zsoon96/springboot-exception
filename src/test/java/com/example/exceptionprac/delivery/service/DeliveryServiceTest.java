@@ -12,11 +12,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
+
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.hamcrest.Matchers.empty;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
@@ -91,6 +95,32 @@ public class DeliveryServiceTest {
 
         // when
         deliveryService.findById(anyLong());
+    }
+
+    @Test
+    public void removeLogs() {
+        // given
+        Address address = buildAddress();
+        DeliveryDto.CreationReq dto = buildCreateDto(address);
+        given(deliveryRepository.findById(anyLong())).willReturn(Optional.of(dto.toEntity()));
+
+        // when
+        Delivery delivery = deliveryService.removeLogs(anyLong());
+
+        // then
+        assertThat(delivery.getLogs(), is(empty()));
+    }
+
+    @Test
+    public void remove() {
+        deliveryService.remove(anyLong());
+
+        // verify()를 이용하여 mock 객체에 대한 원하는 메소드가 특정조건으로 실행되었는지 검증 가능
+        // verify(T mock, VerificationMode mode).method();
+            // VerificationMode의 값을 리턴해주는 메소드 다섯가지 중 하나인 atLeastOnce()는 적어도 한번 수행했는지 검증했는지 리턴
+            // 즉, deliveryRepository에서 deleteById 메소드를 적어도 1번 수행했는지 검증
+        verify(deliveryRepository, atLeastOnce()).deleteById(anyLong());
+
     }
 
     private Address buildAddress() {
