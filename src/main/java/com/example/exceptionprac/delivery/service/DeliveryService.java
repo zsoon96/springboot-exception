@@ -49,7 +49,7 @@ public class DeliveryService {
     }
 
     // Delivery와 DeliveryLog는 연관관계를 맺고 있기 때문에 Delivery만 삭제 불가능
-    // DeliveryLog 삭제 후, Delivery 삭제가 가능
+    // DeliveryLog 삭제 후, Delivery 삭제가 가능 > 근데 고아객체를 설정해주면 가능해짐 !
     public void remove(long id) {
         deliveryRepository.deleteById(id);
     }
