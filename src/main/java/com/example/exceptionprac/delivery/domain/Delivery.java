@@ -36,9 +36,15 @@ public class Delivery {
         this.address = address;
     }
 
+    // N(DeliveryLog)에서 외래 키를 관리(등록, 수정, 삭제)하게 되어 Delivery를 관리하게 되지만
+    // DeliveryLog는 Delivery의 상태를 저장하는 성격이기 때문에 핵심 비즈니스 로직을 Delivery에서 작성하는 것이 바람직함
+    // 이런 경우, 아래와 같은 편의 메소드와 Cascade 타입의 PERSIST를 이용해보가!
     // 배송 추적 추가 로직
     public void addLog (DeliveryStatus status) {
-        this.logs.add(buildLog(status));
+        this.logs.add(DeliveryLog.builder()
+                .status(status)
+                .delivery(this) // this를 통해 Delivery를 넘겨줌!
+                .build());
     }
 
     // 배송 추적 저장

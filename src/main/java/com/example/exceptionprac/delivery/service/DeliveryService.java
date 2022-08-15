@@ -23,8 +23,10 @@ public class DeliveryService {
 
     public Delivery create (DeliveryDto.CreationReq dto) {
         Delivery delivery = dto.toEntity(); // delivery 객체 생성
-        delivery.addLog(DeliveryStatus.PENDING); // 해당 delivery의 deliveryLog List에 현재 상태 추값
+        delivery.addLog(DeliveryStatus.PENDING); // 해당 delivery의 deliveryLog List에 현재 상태 추가
         return deliveryRepository.save(delivery); // db에 저장
+        // Delivery가 시작되면 DeliveryLog에는 반드시 PENDING이어야 한다고 가정했을경우,
+        // addLog() 편의 메소드를 이용하여 두 객체에 모두 필요한 값을 넣어기
     }
 
     public Delivery findById (long id) {

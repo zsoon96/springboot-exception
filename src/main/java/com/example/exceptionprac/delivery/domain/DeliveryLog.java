@@ -41,7 +41,7 @@ public class DeliveryLog {
     public DeliveryLog (DeliveryStatus status, Delivery delivery) {
         verifyStatus(status, delivery); // 배송 추적 검증
         setStatus(status); // 추적 상태 변경
-        this.delivery = delivery;
+        this.delivery = delivery; // Delivery 클래스에서 넘겨받은 객체
     }
 
     /////////////////////////////////////////////////////////////////////
