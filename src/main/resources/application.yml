@@ -1,0 +1,6 @@
+user:
+  email: "soon@test.com"
+  nickname: "soon"
+  age: 200
+  auth: false
+  amount: 101
