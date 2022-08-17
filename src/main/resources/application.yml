@@ -1,6 +1,13 @@
-user:
-  email: "soon@test.com"
-  nickname: "soon"
-  age: 200
-  auth: false
-  amount: 101
+# application-prod.yml 환경변수(env) 설정 방법-1
+spring:
+  profiles:
+    active: prod # 원하는 정보 env를 작성
+
+server:
+  port: 8080
+
+# application-prod.yml 환경변수(env) 설정 방법-2
+  # IntelliJ에서 VM options, Active profiles 중 한가지를 선택하여 설정
+    # 1- VM options > -Dspring.profiles.active={env} 추가
+    # 2- Active profiles > {env} 추가
+
