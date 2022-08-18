@@ -1,5 +1,6 @@
 package com.example.exceptionprac.controller;
 
+import com.example.exceptionprac.common.PageRequest;
 import com.example.exceptionprac.dto.AccountDto;
 import com.example.exceptionprac.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
@@ -62,6 +63,7 @@ public class UserController {
     }
 
     // Spring Data JPA를 활용한 페이징 처리
+    // 이를 통해 데이터베이스마다 페이징 쿼리가 다른 부분들은 신경쓰지 않고 쉽게 구현할 수 있다는 장점이 있음!
     @GetMapping("/page/v1")
     public Page<AccountDto.Res> getAccounts(Pageable pageable){
         return accountService.findAll(pageable).map(AccountDto.Res::new);
@@ -73,6 +75,12 @@ public class UserController {
             // "size" : 한 페이지에서 보여줄 수 있는 요소의 수 > 디폴트 20
             // "first" : true - 첫 페이지 여부
             // "empty" : false - 리스트가 비어 있는지 여부
+    }
+
+    // Spring Data JPA를 활용한 페이징 처리_개선 (PageRequest 객체 사용하여 세부 옵션 설정)
+    @GetMapping("/page/v2")
+    public Page<AccountDto.Res> getAccounts2(PageRequest pageable) {
+        return accountService.findAll(pageable.of()).map(AccountDto.Res::new);
     }
 
 }
