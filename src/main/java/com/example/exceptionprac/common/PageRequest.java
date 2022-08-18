@@ -29,6 +29,6 @@ public class PageRequest {
 
     // of() 메서드를 통해 PageReq 객체를 응답
     public org.springframework.data.domain.PageRequest of() {
-        return org.springframework.data.domain.PageRequest.of(page - 1, size, Sort.by(direction, "username"));
+        return org.springframework.data.domain.PageRequest.of(page - 1, size, Sort.by(direction, "username")); // page는 0부터 시작!
     }
 }

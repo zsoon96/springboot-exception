@@ -2,6 +2,8 @@ package com.example.exceptionprac.controller;
 
 import com.example.exceptionprac.common.PageRequest;
 import com.example.exceptionprac.dto.AccountDto;
+import com.example.exceptionprac.dto.AccountSearchType;
+import com.example.exceptionprac.service.AccountSearchService;
 import com.example.exceptionprac.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,9 +22,11 @@ import javax.validation.Valid;
 public class UserController {
 
     private final AccountService accountService;
+    private final AccountSearchService accountSearchService;
 
-    public UserController(AccountService accountService) {
+    public UserController(AccountService accountService, AccountSearchService accountSearchService) {
         this.accountService = accountService;
+        this.accountSearchService = accountSearchService;
     }
 
     // @Valid를 활용하여 유효성 검증이 실패했을 경우 > MethodArgumentNotValidException 발생
@@ -81,6 +85,15 @@ public class UserController {
     @GetMapping("/page/v2")
     public Page<AccountDto.Res> getAccounts2(PageRequest pageable) {
         return accountService.findAll(pageable.of()).map(AccountDto.Res::new);
+    }
+
+    // Spring Data JPA + QueryDsl을 활용한 검색 + 페이징 처리
+    @GetMapping("page/v3")
+    public Page<AccountDto.Res> getAccounts3 (
+            @RequestParam(name = "type") AccountSearchType type, // 검색 페이징을 위한 type (이메일, 이름, 전체)
+            @RequestParam(name = "value", required = false) String value, // type에 대한 value 의미 (검색하고자 하는 값)
+            PageRequest pageable) {
+        return accountSearchService.search(type, value, pageable.of()).map(AccountDto.Res::new);
     }
 
 }

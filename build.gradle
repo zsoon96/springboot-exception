@@ -33,6 +33,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     // BCryptPasswordEncoder() 비밀번호 암호화를 위한 의존성
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    // Querydsl 사용을 위한 의존성 > QuerydslRepositorySupport, QueryDslPredicateExecutor 사용
+    implementation 'com.querydsl:querydsl-jpa'
+    // Qclass 생성을 위한 의존성
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
 }
 
 tasks.named('test') {
