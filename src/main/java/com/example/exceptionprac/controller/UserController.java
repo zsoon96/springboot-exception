@@ -3,6 +3,8 @@ package com.example.exceptionprac.controller;
 import com.example.exceptionprac.dto.AccountDto;
 import com.example.exceptionprac.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -47,15 +49,22 @@ public class UserController {
     // @ControllerAdvice를 통한 예외처리
     // 성공 시, 아래 리턴 값 반환
     // 실패 시, ErrorExceptionController에서 예외 값 반환
-    @PostMapping("signup/v2")
+    @PostMapping("/signup/v2")
     @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity signup (@RequestBody @Valid final AccountDto.SignUpReq dto) {
         return ResponseEntity.ok(accountService.create(dto));
     }
 
-    @GetMapping("userinfo/v1/{id}")
+    @GetMapping("/userinfo/v1/{id}")
     public ResponseEntity show (@PathVariable Long id) {
         accountService.findById(id);
         return ResponseEntity.ok("회원 정보 조회 성공!");
     }
+
+    // Spring Data JPA를 활용한 페이징 처리
+    @GetMapping("/page/v1")
+    public Page<AccountDto.Res> getAccounts(Pageable pageable){
+        return accountService.findAll(pageable).map(AccountDto.Res::new);
+    }
+
 }

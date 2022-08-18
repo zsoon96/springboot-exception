@@ -6,6 +6,8 @@ import com.example.exceptionprac.domain.Password;
 import com.example.exceptionprac.domain.UserRepository;
 import com.example.exceptionprac.domain.Users;
 import com.example.exceptionprac.dto.AccountDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +40,12 @@ public class AccountService {
     @Transactional(readOnly = true)
     public void findById(long id) {
         userRepository.findById(id).orElseThrow(() -> new AccountNotFoundException(id));
+    }
+
+    // Spring Data JPA를 활용한 페이징 처리
+    @Transactional(readOnly = true)
+    public Page<Users> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
 }
