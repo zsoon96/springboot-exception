@@ -65,6 +65,14 @@ public class UserController {
     @GetMapping("/page/v1")
     public Page<AccountDto.Res> getAccounts(Pageable pageable){
         return accountService.findAll(pageable).map(AccountDto.Res::new);
+
+        // 페이징 처리 시, 일부 응답 값 설명
+            // "last" : true - 마지막 페이지 여부
+            // "totalPages" : 1 - 전체 페이지 수
+            // "totalElements" : 13 - 모든 요소의 수
+            // "size" : 한 페이지에서 보여줄 수 있는 요소의 수 > 디폴트 20
+            // "first" : true - 첫 페이지 여부
+            // "empty" : false - 리스트가 비어 있는지 여부
     }
 
 }
