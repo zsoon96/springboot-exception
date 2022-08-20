@@ -13,7 +13,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
+@DataJpaTest // JPA 관련 테스트 설정만 로드 (기본적으로 @Transactional을 포함) > 테스트 시, 실제 DB가 아닌 테스트 DB로 테스트 진행(@Entity 적용된 클래스 스캔 후, 스프링 데이터 JPA 저장소 구성)
 @RunWith(SpringRunner.class)
 public class UserRepositoryTest {
 
