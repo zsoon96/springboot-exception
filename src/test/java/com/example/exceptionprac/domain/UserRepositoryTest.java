@@ -1,6 +1,7 @@
 package com.example.exceptionprac.domain;
 
 import com.example.exceptionprac.dto.AccountDto;
+import com.querydsl.core.types.Predicate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,54 @@ public class UserRepositoryTest {
         assertThat(users.size()).isLessThan(11);
     }
 
+    // 이메일 존재 여부 테스트
+    @Test
+    public void predicate_test_01() {
+        // given
+        AccountDto.SignUpReq dto = buildSignUpReq();
+        userRepository.save(dto.toEntity());
+
+        Predicate predicate = qUsers.email.eq(Email.of("test@test.com"));
+
+        // when
+        boolean exists = userRepository.exists(predicate);
+
+        // then
+        assertThat(exists).isTrue();
+    }
+
+    // 유저명 존재 여부 테스트
+    @Test
+    public void predicate_test_02() {
+        // given
+        AccountDto.SignUpReq dto = buildSignUpReq();
+        userRepository.save(dto.toEntity());
+
+        Predicate predicate = qUsers.username.eq("soon"); // eq(): 동일성 체크 메서드
+
+        // when
+        boolean exists = userRepository.exists(predicate);
+
+        // then
+        assertThat(exists).isTrue();
+
+    }
+
+    @Test
+    public void predicate_test_03() {
+        // given
+        AccountDto.SignUpReq dto = buildSignUpReq();
+        userRepository.save(dto.toEntity());
+
+        Predicate predicate = qUsers.email.email.like("test%"); // like("str%"): str 검색 메서드
+
+        // when
+        long count = userRepository.count(predicate);
+
+        // then
+        assertThat(count).isGreaterThan(0); // isGreaterThan(int): int보다 큰지 체크 (숫자 비교 메서드)
+    }
+
     public AccountDto.SignUpReq buildSignUpReq() {
         return AccountDto.SignUpReq.builder()
                 .email(buildEmail())
@@ -72,4 +121,5 @@ public class UserRepositoryTest {
                 .email("test@test.com")
                 .build();
     }
+
 }

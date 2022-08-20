@@ -17,5 +17,6 @@ public interface UserRepository extends JpaRepository<Users, Long>, UserCustomRe
 
     // boolean existsByXXXX()와 같이 유사한 쿼리가 필요해지면 쿼리 메서드를 지속적으로 추가해야하는 단점이 있는데
     // 이 경우에, QuerydslPredicateExecutor를 사용하면 매우 효과적임!
-       // QuerydslPredicateExecutor를 상속만 하면 JpaRepository를 통해 해당 구현부에 있는 findById, findAll과 같은 메서드를 사용할 수 있는 것처럼 QuerydslPredicateExecutor의 메서드들을 편리하게 사용할 수 있음
+        // QuerydslPredicateExecutor를 상속만 하면 JpaRepository를 통해 해당 구현부에 있는 findById, findAll과 같은 메서드를 사용할 수 있는 것처럼 QuerydslPredicateExecutor의 메서드들을 편리하게 사용할 수 있음
+        // QuerydslPredicateExecutor 코드를 보면 Predicate를 매개변수로 받고 있기 때문에 Predicate를 통해 새로운 쿼리를 만들 수 있음
 }
